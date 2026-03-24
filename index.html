@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leverage Consulting — AI Strategy for Growing Businesses</title>
+  <meta name="description" content="Discover exactly where AI can transform your business. Free AI Readiness Diagnostic delivered to your inbox." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #1d1d1f;
+      --gray-1:  #6e6e73;
+      --gray-2:  #86868b;
+      --gray-3:  #d2d2d7;
+      --gray-4:  #f5f5f7;
+      --white:   #ffffff;
+      --blue:    #0071e3;
+      --blue-hv: #0077ed;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+                   'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .nav-inner {
+      max-width: 980px; margin: 0 auto; padding: 0 22px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 48px;
+    }
+    .nav-logo {
+      font-size: .82rem; font-weight: 600; letter-spacing: .3px;
+      color: var(--black); text-decoration: none;
+    }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      font-size: .82rem; color: var(--black); text-decoration: none;
+      opacity: .8; transition: opacity .2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-cta { color: var(--blue) !important; opacity: 1 !important; font-weight: 500; }
+    @media(max-width: 700px) { .nav-links { display: none; } }
+
+    /* ── HERO ────────────────────────────────────────────────────────── */
+    .hero {
+      text-align: center; padding: 100px 22px 80px;
+      background: var(--white);
+    }
+    .hero-eyebrow {
+      font-size: .95rem; font-weight: 500; color: var(--blue);
+      margin-bottom: 16px; letter-spacing: .3px;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem); font-weight: 700;
+      line-height: 1.04; letter-spacing: -2.5px; color: var(--black);
+      max-width: 900px; margin: 0 auto 24px;
+    }
+    .hero-sub {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: var(--gray-1);
+      font-weight: 400; max-width: 560px; margin: 0 auto 40px;
+      line-height: 1.55; letter-spacing: .2px;
+    }
+    .hero-actions {
+      display: flex; gap: 14px; justify-content: center;
+      flex-wrap: wrap; align-items: center;
+    }
+    .btn-fill {
+      display: inline-block; padding: 13px 28px;
+      background: var(--blue); color: #fff; border-radius: 980px;
+      font-size: .95rem; font-weight: 500; text-decoration: none;
+      letter-spacing: .3px; transition: background .2s, transform .15s;
+      white-space: nowrap;
+    }
+    .btn-fill:hover { background: var(--blue-hv); transform: scale(1.01); }
+    .btn-text {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: .95rem; font-weight: 500; color: var(--blue);
+      text-decoration: none; letter-spacing: .3px; transition: gap .15s;
+    }
+    .btn-text:hover { gap: 8px; }
+    .btn-text::after { content: '›'; font-size: 1.1rem; }
+
+    /* ── SHARED ──────────────────────────────────────────────────────── */
+    .section { padding: 100px 22px; }
+    .section-gray { background: var(--gray-4); }
+    .container { max-width: 980px; margin: 0 auto; }
+    .eyebrow {
+      font-size: .8rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+    }
+
+    /* ── DIAGNOSTIC STRIP ────────────────────────────────────────────── */
+    .diag-strip {
+      background: var(--gray-4);
+      border-top: 1px solid var(--gray-3);
+      border-bottom: 1px solid var(--gray-3);
+      padding: 0 22px;
+    }
+    .diag-inner {
+      max-width: 980px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px; background: var(--gray-3);
+    }
+    .diag-item {
+      background: var(--gray-4); padding: 52px 40px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .diag-num {
+      font-size: 2.4rem; font-weight: 700; color: var(--black); letter-spacing: -1px;
+    }
+    .diag-item h3 { font-size: 1.05rem; font-weight: 600; color: var(--black); }
+    .diag-item p { font-size: .9rem; color: var(--gray-1); line-height: 1.6; }
+    .diag-note {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .78rem; color: var(--gray-2); margin-top: 6px;
+    }
+    @media(max-width: 700px) { .diag-inner { grid-template-columns: 1fr; } }
+
+    /* ── HEADLINE SECTION ────────────────────────────────────────────── */
+    .headline-section { padding: 120px 22px; text-align: center; }
+    .headline-section h2 {
+      font-size: clamp(2.4rem, 5.5vw, 4.5rem); font-weight: 700;
+      letter-spacing: -2px; line-height: 1.06; color: var(--black);
+      max-width: 820px; margin: 0 auto 24px;
+    }
+    .headline-section h2 .accent { color: var(--blue); }
+    .headline-section > p {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--gray-1);
+      max-width: 560px; margin: 0 auto; line-height: 1.6;
+    }
+
+    /* ── SPLIT ───────────────────────────────────────────────────────── */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .split.reverse { direction: rtl; }
+    .split.reverse > * { direction: ltr; }
+    @media(max-width: 768px) {
+      .split, .split.reverse { grid-template-columns: 1fr; gap: 48px; direction: ltr; }
+    }
+    .split-label {
+      font-size: .8rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+    }
+    .split h2 {
+      font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 700;
+      letter-spacing: -1px; line-height: 1.1; color: var(--black); margin-bottom: 20px;
+    }
+    .split > div > p {
+      font-size: 1rem; color: var(--gray-1); line-height: 1.7; margin-bottom: 14px;
+    }
+    .split-link {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: .95rem; color: var(--blue); text-decoration: none;
+      font-weight: 500; margin-top: 10px; transition: gap .15s;
+    }
+    .split-link:hover { gap: 8px; }
+    .split-link::after { content: '›'; font-size: 1.1rem; }
+
+    /* ── POINTS ──────────────────────────────────────────────────────── */
+    .points { display: flex; flex-direction: column; gap: 32px; }
+    .point { display: flex; gap: 20px; align-items: flex-start; }
+    .point-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: rgba(0,113,227,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .point h4 { font-size: 1rem; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+    .point p { font-size: .9rem; color: var(--gray-1); line-height: 1.6; }
+
+    /* ── HOW IT WORKS ────────────────────────────────────────────────── */
+    .steps {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--gray-3);
+      border-radius: 18px; overflow: hidden; margin-top: 52px;
+    }
+    @media(max-width: 700px) { .steps { grid-template-columns: 1fr; } }
+    .step { background: var(--white); padding: 48px 36px; }
+    .step-n {
+      font-size: .78rem; font-weight: 600; color: var(--blue);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .step h3 { font-size: 1.1rem; font-weight: 600; color: var(--black); margin-bottom: 10px; }
+    .step p { font-size: .9rem; color: var(--gray-1); line-height: 1.65; }
+
+    /* ── DARK BAND ───────────────────────────────────────────────────── */
+    .dark-band {
+      background: var(--black); color: #fff;
+      padding: 100px 22px; text-align: center;
+    }
+    .dark-band .eyebrow { color: rgba(255,255,255,.45); margin-bottom: 20px; }
+    .dark-band h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700;
+      letter-spacing: -1.5px; max-width: 760px;
+      margin: 0 auto 20px; line-height: 1.1;
+    }
+    .dark-band h2 em { font-style: normal; color: #60a5fa; }
+    .dark-band > .container > p {
+      font-size: 1.1rem; color: rgba(255,255,255,.65);
+      max-width: 540px; margin: 0 auto 36px; line-height: 1.65;
+    }
+
+    /* ── TIERS ───────────────────────────────────────────────────────── */
+    .tiers-header { text-align: center; margin-bottom: 60px; }
+    .tiers-header h2 {
+      font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 700;
+      letter-spacing: -1.5px; color: var(--black); margin-bottom: 14px;
+    }
+    .tiers-header p { font-size: 1.05rem; color: var(--gray-1); max-width: 480px; margin: 0 auto; }
+    .tiers {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--gray-3);
+      border-radius: 20px; overflow: hidden;
+    }
+    @media(max-width: 840px) { .tiers { grid-template-columns: 1fr; } }
+    .tier {
+      background: var(--white); padding: 44px 36px;
+      display: flex; flex-direction: column;
+    }
+    .tier.featured { background: #f0f7ff; }
+    .tier-tag {
+      font-size: .75rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
+    }
+    .tier h3 { font-size: 1.3rem; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+    .tier-price {
+      font-size: 2.8rem; font-weight: 700; color: var(--black);
+      letter-spacing: -1.5px; margin: 16px 0 4px;
+    }
+    .tier-price sup { font-size: 1.2rem; font-weight: 600; vertical-align: top; margin-top: 8px; }
+    .tier-desc { font-size: .9rem; color: var(--gray-1); margin-bottom: 24px; line-height: 1.55; }
+    .tier-divider { border: none; border-top: 1px solid var(--gray-3); margin: 0 0 24px; }
+    .tier-features { list-style: none; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .tier-features li {
+      font-size: .88rem; color: var(--black);
+      display: flex; gap: 10px; line-height: 1.5;
+    }
+    .tier-features li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+    .tier-btn {
+      display: block; margin-top: 32px; padding: 12px 22px;
+      border-radius: 980px; text-align: center; text-decoration: none;
+      font-size: .9rem; font-weight: 500; letter-spacing: .3px;
+      transition: all .2s;
+    }
+    .tier-btn-outline { border: 1.5px solid var(--blue); color: var(--blue); }
+    .tier-btn-outline:hover { background: var(--blue); color: #fff; }
+    .tier-btn-fill { background: var(--blue); color: #fff; border: 1.5px solid var(--blue); }
+    .tier-btn-fill:hover { background: var(--blue-hv); }
+
+    /* ── FORM ────────────────────────────────────────────────────────── */
+    #get-diagnostic { padding: 100px 22px; background: var(--gray-4); }
+    .form-wrapper { max-width: 680px; margin: 0 auto; }
+    .form-header { text-align: center; margin-bottom: 52px; }
+    .form-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      letter-spacing: -1.2px; color: var(--black); margin-bottom: 12px;
+    }
+    .form-header p { font-size: .95rem; color: var(--gray-1); line-height: 1.6; }
+    .form-body { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media(max-width: 580px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    label { font-size: .82rem; font-weight: 500; color: var(--black); letter-spacing: .2px; }
+    label .req { color: var(--blue); }
+    input, select, textarea {
+      padding: 12px 16px; border: 1px solid var(--gray-3); border-radius: 10px;
+      font-family: inherit; font-size: .95rem; color: var(--black);
+      background: var(--white); outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      -webkit-appearance: none; appearance: none;
+    }
+    input::placeholder, textarea::placeholder { color: #b0b0b5; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,113,227,.12);
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .btn-submit {
+      width: 100%; padding: 16px; background: var(--blue); color: #fff;
+      border: none; border-radius: 980px; font-family: inherit;
+      font-size: 1rem; font-weight: 500; letter-spacing: .3px;
+      cursor: pointer; transition: background .2s, transform .1s; margin-top: 8px;
+    }
+    .btn-submit:hover { background: var(--blue-hv); transform: scale(1.01); }
+    .btn-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .form-note { font-size: .78rem; color: var(--gray-2); text-align: center; margin-top: 12px; }
+    .form-note a { color: var(--blue); text-decoration: none; }
+    .msg-error {
+      display: none; background: #fff2f2; border: 1px solid #fecaca;
+      color: #991b1b; border-radius: 10px; padding: 14px 18px;
+      font-size: .88rem; margin-top: 12px;
+    }
+    .msg-error.show { display: block; }
+
+    /* ── SUCCESS ─────────────────────────────────────────────────────── */
+    #success-screen { display: none; padding: 100px 22px; background: var(--gray-4); }
+    .success-wrap { max-width: 600px; margin: 0 auto; text-align: center; }
+    .success-icon { font-size: 3.5rem; margin-bottom: 24px; }
+    .success-wrap h2 {
+      font-size: 2.2rem; font-weight: 700; letter-spacing: -1px;
+      color: var(--black); margin-bottom: 14px;
+    }
+    .success-wrap > p { font-size: 1rem; color: var(--gray-1); line-height: 1.65; margin-bottom: 10px; }
+    .upgrade-cards { margin: 40px 0; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+    .upgrade-card {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--white); border: 1px solid var(--gray-3);
+      border-radius: 12px; padding: 18px 22px;
+    }
+    .upgrade-card.highlight { border-color: var(--blue); background: #f0f7ff; }
+    .upgrade-name { font-size: .95rem; font-weight: 600; color: var(--black); }
+    .upgrade-desc { font-size: .82rem; color: var(--gray-1); margin-top: 2px; }
+    .upgrade-price { font-size: 1.2rem; font-weight: 700; color: var(--black); }
+    .success-cta {
+      display: inline-block; padding: 14px 36px; background: var(--blue);
+      color: #fff; border-radius: 980px; text-decoration: none;
+      font-size: .95rem; font-weight: 500; letter-spacing: .3px;
+      transition: background .2s;
+    }
+    .success-cta:hover { background: var(--blue-hv); }
+
+    /* ── FAQ ─────────────────────────────────────────────────────────── */
+    .faq-grid { max-width: 760px; margin: 52px auto 0; }
+    details { border-bottom: 1px solid var(--gray-3); }
+    summary {
+      padding: 22px 0; font-size: .98rem; font-weight: 500; color: var(--black);
+      cursor: pointer; list-style: none;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-size: 1.3rem; color: var(--gray-2); flex-shrink: 0; margin-left: 20px; }
+    details[open] summary::after { content: '−'; }
+    details > p { padding: 0 0 22px; font-size: .92rem; color: var(--gray-1); line-height: 1.75; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
+    footer {
+      background: var(--gray-4); border-top: 1px solid var(--gray-3);
+      padding: 44px 22px 36px;
+    }
+    .footer-inner {
+      max-width: 980px; margin: 0 auto;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+    }
+    .footer-copy { font-size: .82rem; color: var(--gray-2); }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: .82rem; color: var(--gray-2); text-decoration: none; }
+    .footer-links a:hover { color: var(--black); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">Leverage Consulting</a>
+    <div class="nav-links">
+      <a href="#what-you-get">What you get</a>
+      <a href="#full-reports">Reports</a>
+      <a href="#get-diagnostic">Contact</a>
+      <a href="#get-diagnostic" class="nav-cta">Free diagnostic</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Free AI Readiness Diagnostic</div>
+  <h1>AI doesn't wait.<br>Neither should you.</h1>
+  <p class="hero-sub">Find out exactly where AI can transform your business — your personalised diagnostic, free, delivered to your inbox in minutes.</p>
+  <div class="hero-actions">
+    <a href="#get-diagnostic" class="btn-fill">Get your free diagnostic</a>
+    <a href="#full-reports" class="btn-text">See full reports</a>
+  </div>
+</section>
+
+
+<!-- WHAT THE DIAGNOSTIC DELIVERS -->
+<div class="diag-strip" id="what-you-get">
+  <div class="diag-inner">
+    <div class="diag-item">
+      <div class="diag-num">Score</div>
+      <h3>AI Readiness Assessment</h3>
+      <p>A scored evaluation of how ready your business is to adopt AI — with an honest, specific rationale built around your profile.</p>
+    </div>
+    <div class="diag-item">
+      <div class="diag-num">3</div>
+      <h3>Top Opportunities Identified</h3>
+      <p>The three highest-leverage AI opportunities for your business, with the value each one could unlock.</p>
+      <div class="diag-note">🔒 Full implementation detail in the paid report</div>
+    </div>
+    <div class="diag-item">
+      <div class="diag-num">£</div>
+      <h3>Value at Stake Estimate</h3>
+      <p>A business-specific estimate of the annual value available — time saved, revenue gained, or costs cut — if you act.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- THE CASE FOR AI -->
+<section class="headline-section">
+  <div class="eyebrow">The opportunity</div>
+  <h2>The businesses winning in 2026 aren't bigger.<br>They're <span class="accent">smarter about AI.</span></h2>
+  <p>AI isn't a future technology. It's already being used by your competitors to do in minutes what takes your team hours. The question isn't whether to act — it's where to act first.</p>
+</section>
+
+
+<!-- SPLIT: WHAT AI ACTUALLY DOES -->
+<section class="section">
+  <div class="container">
+    <div class="split">
+      <div>
+        <div class="split-label">What changes</div>
+        <h2>AI doesn't replace your people. It amplifies them.</h2>
+        <p>The most valuable AI implementations eliminate the low-value work that stops your best people doing their best work. Customer enquiries that take an hour, handled in seconds. Reports that take a day, generated in minutes. Leads that fall through the cracks, followed up automatically.</p>
+        <p>Every business has 10–20 hours a week of work that could be handled by AI. Most businesses have no idea where those hours are, or how to capture them.</p>
+        <a href="#get-diagnostic" class="split-link">Find yours free</a>
+      </div>
+      <div class="points">
+        <div class="point">
+          <div class="point-icon">⚡</div>
+          <div>
+            <h4>Speed as competitive advantage</h4>
+            <p>AI-enabled teams respond faster, close deals quicker, and move from insight to action in hours — not weeks.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-icon">🎯</div>
+          <div>
+            <h4>Do more without hiring more</h4>
+            <p>Scale output without scaling headcount. AI handles the volume; your people focus on the work that actually requires them.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-icon">📈</div>
+          <div>
+            <h4>Compounding returns</h4>
+            <p>Well-implemented AI compounds. Each process improved frees capacity to improve the next. The gap between early movers and late adopters grows every month.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-icon">🔍</div>
+          <div>
+            <h4>Decisions backed by data</h4>
+            <p>AI surfaces patterns, flags risks, and spots opportunities that no individual could identify at scale.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="section section-gray">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="eyebrow">The process</div>
+      <h2 style="font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;letter-spacing:-1.2px;color:var(--black);">Your diagnostic in three steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">Step 01</div>
+        <h3>Tell us about your business</h3>
+        <p>A short form — industry, team size, challenges, goals. Under 3 minutes. No jargon, no long questionnaire.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">Step 02</div>
+        <h3>We analyse it</h3>
+        <p>Our AI strategy engine — built on deployment patterns from hundreds of real businesses — identifies your highest-value opportunities and scores your readiness.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">Step 03</div>
+        <h3>Receive your PDF</h3>
+        <p>A professional, personalised diagnostic lands in your inbox. Typically within minutes. Ready to share with your team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- DARK BAND: WHAT vs HOW -->
+<div class="dark-band">
+  <div class="container">
+    <div class="eyebrow">The difference</div>
+    <h2>The diagnostic tells you <em>what</em> to do.<br>The full report tells you <em>how.</em></h2>
+    <p>Knowing you have an AI opportunity is the start. Knowing exactly how to implement it — with a step-by-step roadmap, ROI model, vendor shortlist, and 90-day action plan — is what actually moves the business.</p>
+    <a href="#full-reports" class="btn-fill" style="font-size:.9rem;padding:12px 28px;">See full report options</a>
+  </div>
+</div>
+
+
+<!-- FULL REPORTS / TIERS -->
+<section class="section" id="full-reports">
+  <div class="container">
+    <div class="tiers-header">
+      <div class="eyebrow">AI Opportunity Audits</div>
+      <h2>The full roadmap, built for your business.</h2>
+      <p>Each paid report turns your diagnostic into a complete implementation plan — specific to your business, not a generic template.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-tag">Starter</div>
+        <h3>AI Audit — Starter</h3>
+        <div class="tier-price"><sup>£</sup>497</div>
+        <div class="tier-desc">For founders and small teams ready to act on AI strategically and without wasted effort.</div>
+        <hr class="tier-divider">
+        <ul class="tier-features">
+          <li>3 priority opportunities with full implementation plans</li>
+          <li>AI Readiness Assessment</li>
+          <li>90-day implementation roadmap</li>
+          <li>Estimated ROI for each opportunity</li>
+          <li>Recommended tools &amp; vendor shortlist</li>
+          <li>Professional PDF report (~25 pages)</li>
+        </ul>
+        <a href="mailto:hello@leverageconsulting.uk?subject=Starter%20Audit%20Enquiry" class="tier-btn tier-btn-outline">Enquire →</a>
+      </div>
+      <div class="tier featured">
+        <div class="tier-tag">Most Popular · Professional</div>
+        <h3>AI Audit — Professional</h3>
+        <div class="tier-price"><sup>£</sup>1,497</div>
+        <div class="tier-desc">The complete picture for established businesses serious about AI-led competitive advantage.</div>
+        <hr class="tier-divider">
+        <ul class="tier-features">
+          <li>6 opportunities with detailed implementation plans</li>
+          <li>Full ROI models and payback period analysis</li>
+          <li>Competitor AI landscape review</li>
+          <li>Change management guidance</li>
+          <li>Vendor comparison tables</li>
+          <li>Priority matrix: quick wins vs strategic plays</li>
+          <li>Professional PDF report (~50 pages)</li>
+        </ul>
+        <a href="mailto:hello@leverageconsulting.uk?subject=Professional%20Audit%20Enquiry" class="tier-btn tier-btn-fill">Enquire →</a>
+      </div>
+      <div class="tier">
+        <div class="tier-tag">Enterprise</div>
+        <h3>AI Audit — Enterprise</h3>
+        <div class="tier-price"><sup>£</sup>3,497</div>
+        <div class="tier-desc">Board-ready AI strategy for businesses with complex operations and multiple departments.</div>
+        <hr class="tier-divider">
+        <ul class="tier-features">
+          <li>10 opportunities across all business functions</li>
+          <li>Executive briefing document</li>
+          <li>Department-by-department AI strategy</li>
+          <li>Build vs buy vs integrate analysis</li>
+          <li>Risk &amp; governance framework</li>
+          <li>12-month phased implementation plan</li>
+          <li>Board-ready presentation slides</li>
+          <li>Professional PDF report (~80+ pages)</li>
+        </ul>
+        <a href="mailto:hello@leverageconsulting.uk?subject=Enterprise%20Audit%20Enquiry" class="tier-btn tier-btn-outline">Enquire →</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:.85rem;color:var(--gray-2);">
+      Not sure which is right? <a href="mailto:hello@leverageconsulting.uk" style="color:var(--blue);text-decoration:none;">Email us</a> and we'll recommend the best fit.
+    </p>
+  </div>
+</section>
+
+
+<!-- WHY LEVERAGE -->
+<section class="section section-gray">
+  <div class="container">
+    <div class="split reverse">
+      <div>
+        <div class="split-label">Why Leverage Consulting</div>
+        <h2>Senior strategy thinking.<br>Not a template report.</h2>
+        <p>Every diagnostic and audit is generated fresh against your specific business profile. Our engine is built on AI deployment experience across hundreds of SMEs and mid-market businesses — so it knows what actually works at your scale, in your sector.</p>
+        <p>No off-the-shelf frameworks. No generic use cases. A clear, commercially grounded view of where AI can move the needle for you — and exactly how to make it happen.</p>
+        <a href="#get-diagnostic" class="split-link">Start with the free diagnostic</a>
+      </div>
+      <div class="points">
+        <div class="point">
+          <div class="point-icon">🧠</div>
+          <div>
+            <h4>Built on real AI deployments</h4>
+            <p>Not theoretical use cases. Recommendations grounded in what has actually delivered results for businesses like yours.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-icon">⚡</div>
+          <div>
+            <h4>Fast — by design</h4>
+            <p>Your diagnostic in minutes. Full paid reports within 24 hours. No waiting weeks for a consultant to find time.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-icon">💷</div>
+          <div>
+            <h4>Every recommendation tied to a number</h4>
+            <p>We don't recommend AI for AI's sake. Every opportunity is tied to a commercial outcome — time saved, revenue gained, or cost cut.</p>
+          </div>
+        </div>
+        <div class="point">
+          <div class="point-icon">🔒</div>
+          <div>
+            <h4>Your data stays private</h4>
+            <p>Your intake information is used only to generate your report. Never shared, never sold.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- INTAKE FORM -->
+<section id="get-diagnostic">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <div class="eyebrow">Free Diagnostic</div>
+      <h2>See your AI opportunity in minutes.</h2>
+      <p>Fill in the short form below. Your personalised AI Readiness Diagnostic will be emailed to you as a PDF — typically within minutes of submitting.</p>
+    </div>
+    <form id="audit-form">
+      <div class="form-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="client_name">Business name <span class="req">*</span></label>
+            <input type="text" id="client_name" name="client_name" placeholder="Acme Ltd" required />
+          </div>
+          <div class="form-group">
+            <label for="contact_email">Email address <span class="req">*</span></label>
+            <input type="email" id="contact_email" name="contact_email" placeholder="you@company.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="industry">Industry <span class="req">*</span></label>
+            <select id="industry" name="industry" required>
+              <option value="">Select…</option>
+              <option>Retail &amp; E-commerce</option>
+              <option>Professional Services</option>
+              <option>Financial Services</option>
+              <option>Healthcare &amp; Wellness</option>
+              <option>Construction &amp; Property</option>
+              <option>Manufacturing</option>
+              <option>Hospitality &amp; Food &amp; Beverage</option>
+              <option>Technology &amp; Software</option>
+              <option>Marketing &amp; Media</option>
+              <option>Legal &amp; Compliance</option>
+              <option>Education &amp; Training</option>
+              <option>Logistics &amp; Supply Chain</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="annual_revenue">Annual revenue</label>
+            <select id="annual_revenue" name="annual_revenue">
+              <option value="">Select…</option>
+              <option>Under £250k</option>
+              <option>£250k – £1m</option>
+              <option>£1m – £5m</option>
+              <option>£5m – £20m</option>
+              <option>£20m – £50m</option>
+              <option>£50m+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="employees">Team size</label>
+            <select id="employees" name="employees">
+              <option value="">Select…</option>
+              <option>Solo / Freelance</option>
+              <option>2–10</option>
+              <option>11–50</option>
+              <option>51–200</option>
+              <option>201–500</option>
+              <option>500+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="current_ai_tools">Current AI tools used</label>
+            <input type="text" id="current_ai_tools" name="current_ai_tools" placeholder="e.g. ChatGPT, Copilot, none" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="biggest_challenges">Biggest business challenges <span class="req">*</span></label>
+          <textarea id="biggest_challenges" name="biggest_challenges" placeholder="e.g. Too much manual admin, struggling to scale customer support, slow lead follow-up…" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="growth_goals">Growth goals for the next 12 months</label>
+          <textarea id="growth_goals" name="growth_goals" placeholder="e.g. Double revenue, expand into new markets, cut operational costs by 20%…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span id="btn-text">Send me my free diagnostic</span>
+        </button>
+        <p class="form-note">By submitting you agree to our <a href="#">Privacy Policy</a>. No spam, ever.</p>
+        <div class="msg-error" id="msg-error">
+          Something went wrong — please try again or email <a href="mailto:hello@leverageconsulting.uk">hello@leverageconsulting.uk</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<!-- SUCCESS -->
+<section id="success-screen">
+  <div class="success-wrap container">
+    <div class="success-icon">✉️</div>
+    <h2>Your diagnostic is on its way.</h2>
+    <p>We're generating your personalised AI Readiness Diagnostic now. It will arrive in your inbox as a PDF — typically within a few minutes.</p>
+    <p>While you wait — here's what the full AI Opportunity Audit adds on top of your diagnostic:</p>
+    <div class="upgrade-cards">
+      <div class="upgrade-card">
+        <div>
+          <div class="upgrade-name">Starter Audit</div>
+          <div class="upgrade-desc">3 opportunities · Full implementation plans · 90-day roadmap</div>
+        </div>
+        <div class="upgrade-price">£497</div>
+      </div>
+      <div class="upgrade-card highlight">
+        <div>
+          <div class="upgrade-name">Professional Audit</div>
+          <div class="upgrade-desc">6 opportunities · ROI models · Vendor comparisons · Most popular</div>
+        </div>
+        <div class="upgrade-price">£1,497</div>
+      </div>
+      <div class="upgrade-card">
+        <div>
+          <div class="upgrade-name">Enterprise Audit</div>
+          <div class="upgrade-desc">10 opportunities · Board-ready · 12-month phased plan</div>
+        </div>
+        <div class="upgrade-price">£3,497</div>
+      </div>
+    </div>
+    <a href="mailto:hello@leverageconsulting.uk?subject=Full%20Audit%20Enquiry" class="success-cta">Enquire about the full audit →</a>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="section section-gray">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="eyebrow">FAQ</div>
+      <h2 style="font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-1px;color:var(--black);">Common questions.</h2>
+    </div>
+    <div class="faq-grid">
+      <details open>
+        <summary>Is the diagnostic really free?</summary>
+        <p>Yes — completely free. No credit card, no sales call, no obligation. The diagnostic is our way of showing you the quality of our thinking. We hope you'll upgrade to a full audit after you see the value, but there's no pressure either way.</p>
+      </details>
+      <details>
+        <summary>How quickly will I receive it?</summary>
+        <p>Typically within 2–5 minutes of submitting the form. Your diagnostic is generated in real time and emailed directly as a PDF attachment.</p>
+      </details>
+      <details>
+        <summary>What's the difference between the free diagnostic and the paid audit?</summary>
+        <p>The free diagnostic identifies your top opportunities and estimates the value at stake — the <em>what</em>. The paid audit adds the <em>how</em>: complete implementation roadmaps, step-by-step plans, ROI models, vendor shortlists, and a prioritised action plan. The paid audit is what you bring to your team to actually execute.</p>
+      </details>
+      <details>
+        <summary>How accurate are the estimates?</summary>
+        <p>Our AI engine is trained on deployment experience across hundreds of SMEs and mid-market businesses. Opportunity names and value estimates are grounded in real implementation data. They should be treated as informed estimates — the full paid audit includes deeper modelling with more precise ROI calculations.</p>
+      </details>
+      <details>
+        <summary>Do I need technical knowledge to use the report?</summary>
+        <p>No. All reports are written for business owners and senior leaders — not developers. We focus on business outcomes, commercial logic, and practical steps you can act on whether or not you have a tech team.</p>
+      </details>
+      <details>
+        <summary>What happens to my data?</summary>
+        <p>Your intake information is used solely to generate your diagnostic. We do not sell it, share it with third parties, or use it for any other purpose.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">© 2026 Leverage Consulting. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#what-you-get">Diagnostic</a>
+      <a href="#full-reports">Reports</a>
+      <a href="mailto:hello@leverageconsulting.uk">hello@leverageconsulting.uk</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  const ENDPOINT = 'https://talented-inspiration-production.up.railway.app/audit';
+  const SECRET   = 'lc-audit-2026';
+
+  document.getElementById('audit-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn     = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const errMsg  = document.getElementById('msg-error');
+
+    errMsg.classList.remove('show');
+    btn.disabled = true;
+    btnText.textContent = 'Generating your diagnostic…';
+
+    const fd = new FormData(e.target);
+    const payload = { tier: 'free' };
+    fd.forEach((val, key) => { if (val) payload[key] = val; });
+
+    try {
+      const resp = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Webhook-Secret': SECRET },
+        body: JSON.stringify(payload)
+      });
+      if (resp.ok || resp.status === 202) {
+        document.getElementById('get-diagnostic').style.display = 'none';
+        const ss = document.getElementById('success-screen');
+        ss.style.display = 'block';
+        ss.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        const data = await resp.json().catch(() => ({}));
+        throw new Error(data.error || 'Server returned ' + resp.status);
+      }
+    } catch (err) {
+      errMsg.classList.add('show');
+      btn.disabled = false;
+      btnText.textContent = 'Send me my free diagnostic';
+    }
+  });
+</script>
+</body>
+</html>
