@@ -15,7 +15,7 @@
       --gray-3:  #d2d2d7;
       --gray-4:  #f5f5f7;
       --white:   #ffffff;
-      --blue:    #0071e3;
+      --blue:    #0071e3
       --blue-hv: #0077ed;
     }
 
@@ -750,7 +750,7 @@
         <div class="upgrade-price">£3,497</div>
       </div>
     </div>
-    <a href="https://buy.stripe.com/00weV5eAXgUpcJid741RC01" target="_blank" class="success-cta">Get the full audit →</a>
+    <button onclick="handleEnterpriseCheckout()" class="success-cta">Get the full audit →</button>
   </div>
 </section>
 
@@ -806,44 +806,60 @@
 
 
 <script>
-  const ENDPOINT = 'https://talented-inspiration-production.up.railway.app/audit';
-  const SECRET   = 'lc-audit-2026';
-
-  document.getElementById('audit-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn     = document.getElementById('submit-btn');
-    const btnText = document.getElementById('btn-text');
-    const errMsg  = document.getElementById('msg-error');
-
-    errMsg.classList.remove('show');
-    btn.disabled = true;
-    btnText.textContent = 'Generating your diagnostic…';
-
-    const fd = new FormData(e.target);
-    const payload = { tier: 'free' };
-    fd.forEach((val, key) => { if (val) payload[key] = val; });
-
-    try {
-      const resp = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Webhook-Secret': SECRET },
-        body: JSON.stringify(payload)
+  // ── Form submit: save data to sessionStorage ──────────────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('audit-form');
+    if (form) {
+      form.addEventListener('submit', function () {
+        const data = {};
+        new FormData(form).forEach(function(v, k) { data[k] = v; });
+        sessionStorage.setItem('auditFormData', JSON.stringify(data));
       });
-      if (resp.ok || resp.status === 202) {
-        document.getElementById('get-diagnostic').style.display = 'none';
-        const ss = document.getElementById('success-screen');
-        ss.style.display = 'block';
-        ss.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        const data = await resp.json().catch(() => ({}));
-        throw new Error(data.error || 'Server returned ' + resp.status);
-      }
-    } catch (err) {
-      errMsg.classList.add('show');
-      btn.disabled = false;
-      btnText.textContent = 'Send me my free diagnostic';
     }
   });
+
+  // ── Enterprise checkout ───────────────────────────────────────────────
+  function handleEnterpriseCheckout() {
+    let intake = {};
+    try { intake = JSON.parse(sessionStorage.getItem('auditFormData') || '{}'); } catch(e) {}
+
+    // Fallback: collect from form if still on page
+    const form = document.getElementById('audit-form');
+    if (form) {
+      new FormData(form).forEach(function(v, k) { intake[k] = v; });
+    }
+
+    const btn = document.querySelector('.success-cta');
+    if (btn) { btn.textContent = 'Redirecting to checkout…'; btn.disabled = true; }
+
+    fetch('https://talented-inspiration-production.up.railway.app/enterprise-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(intake)
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Could not start checkout: ' + (data.error || 'unknown error'));
+        if (btn) { btn.textContent = 'Get the full audit →'; btn.disabled = false; }
+      }
+    })
+    .catch(function(err) {
+      alert('Network error. Please try again.');
+      if (btn) { btn.textContent = 'Get the full audit →'; btn.disabled = false; }
+    });
+  }
+
+  // ── Mobile nav toggle ─────────────────────────────────────────────────
+  const toggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', function () {
+      navLinks.classList.toggle('open');
+    });
+  }
 </script>
 </body>
 </html>
