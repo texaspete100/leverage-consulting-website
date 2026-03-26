@@ -537,7 +537,7 @@
           <li>Recommended tools &amp; vendor shortlist</li>
           <li>Professional PDF report (~25 pages)</li>
         </ul>
-        <a href="https://buy.stripe.com/4gM7sD64r33z4cM8QO1RC02" target="_blank" class="tier-btn tier-btn-outline">Get started →</a>
+        <button onclick="handleCheckout('starter')" class="tier-btn tier-btn-outline">Get started →</button>
       </div>
       <div class="tier featured">
         <div class="tier-tag">Most Popular · Professional</div>
@@ -554,7 +554,7 @@
           <li>Priority matrix: quick wins vs strategic plays</li>
           <li>Professional PDF report (~50 pages)</li>
         </ul>
-        <a href="https://buy.stripe.com/00weV5eAXgUpcJid741RC01" target="_blank" class="tier-btn tier-btn-fill">Get started →</a>
+        <button onclick="handleCheckout('professional')" class="tier-btn tier-btn-fill">Get started →</button>
       </div>
       <div class="tier">
         <div class="tier-tag">Enterprise</div>
@@ -572,7 +572,7 @@
           <li>Board-ready presentation slides</li>
           <li>Professional PDF report (~80+ pages)</li>
         </ul>
-        <a href="https://buy.stripe.com/4gMdR11ObfQl8t25EC1RC03" target="_blank" class="tier-btn tier-btn-outline">Get started →</a>
+        <button onclick="handleCheckout('enterprise')" class="tier-btn tier-btn-outline">Get started →</button>
       </div>
     </div>
     <p style="text-align:center;margin-top:24px;font-size:.85rem;color:var(--gray-2);">
@@ -750,7 +750,7 @@
         <div class="upgrade-price">£3,497</div>
       </div>
     </div>
-    <button onclick="handleEnterpriseCheckout()" class="success-cta">Get the full audit →</button>
+    <button onclick="handleCheckout('enterprise')" class="success-cta">Get the full audit →</button>
   </div>
 </section>
 
@@ -806,7 +806,7 @@
 
 
 <script>
-  // ── Form submit: save data to sessionStorage ──────────────────────────
+  // ── Save form data on submit ──────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('audit-form');
     if (form) {
@@ -818,21 +818,22 @@
     }
   });
 
-  // ── Enterprise checkout ───────────────────────────────────────────────
-  function handleEnterpriseCheckout() {
+  // ── Checkout handler (all tiers) ──────────────────────────────────────
+  function handleCheckout(tier) {
     let intake = {};
     try { intake = JSON.parse(sessionStorage.getItem('auditFormData') || '{}'); } catch(e) {}
 
-    // Fallback: collect from form if still on page
     const form = document.getElementById('audit-form');
     if (form) {
       new FormData(form).forEach(function(v, k) { intake[k] = v; });
     }
+    intake.tier = tier;
 
-    const btn = document.querySelector('.success-cta');
-    if (btn) { btn.textContent = 'Redirecting to checkout…'; btn.disabled = true; }
+    const btn = event && event.target ? event.target : document.querySelector('.success-cta, .tier-btn');
+    const origText = btn ? btn.textContent : '';
+    if (btn) { btn.textContent = 'Redirecting…'; btn.disabled = true; }
 
-    fetch('https://talented-inspiration-production.up.railway.app/enterprise-checkout', {
+    fetch('https://talented-inspiration-production.up.railway.app/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(intake)
@@ -843,12 +844,12 @@
         window.location.href = data.url;
       } else {
         alert('Could not start checkout: ' + (data.error || 'unknown error'));
-        if (btn) { btn.textContent = 'Get the full audit →'; btn.disabled = false; }
+        if (btn) { btn.textContent = origText; btn.disabled = false; }
       }
     })
     .catch(function(err) {
       alert('Network error. Please try again.');
-      if (btn) { btn.textContent = 'Get the full audit →'; btn.disabled = false; }
+      if (btn) { btn.textContent = origText; btn.disabled = false; }
     });
   }
 
