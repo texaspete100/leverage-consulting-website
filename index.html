@@ -270,6 +270,22 @@
     .tier-btn-fill:hover, .tier-btn-outline:hover { background: var(--blue-hv); transform: scale(1.01); }
     .tier.featured { background: #f0f7ff; box-shadow: 0 8px 40px rgba(0,113,227,.13); position: relative; z-index: 1; }
 
+    /* ── TESTIMONIALS ────────────────────────────────────────────────── */
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+      margin-top: 60px;
+    }
+    .testimonial-card {
+      background: var(--white); padding: 32px; border-radius: 16px;
+      border: 1px solid var(--gray-3); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .testimonial-stars { color: #F59E0B; font-size: 1.1rem; letter-spacing: 2px; }
+    .testimonial-quote { font-size: 1.05rem; color: var(--black); line-height: 1.6; font-weight: 500; flex-grow: 1; }
+    .testimonial-author { border-top: 1px solid var(--gray-3); padding-top: 16px; margin-top: 8px; }
+    .testimonial-name { font-weight: 700; font-size: .95rem; color: var(--black); }
+    .testimonial-role { font-size: .85rem; color: var(--gray-1); margin-top: 2px; }
+
     /* ── FORM ────────────────────────────────────────────────────────── */
     #get-diagnostic { padding: 100px 22px 120px; background: var(--gray-4); }
     .form-wrapper { max-width: 680px; margin: 0 auto; }
@@ -595,6 +611,59 @@
     <p style="text-align:center;margin-top:24px;font-size:.85rem;color:var(--gray-2);">
       Not sure which is right? <a href="mailto:hello@leverageconsulting.uk" style="color:var(--blue);text-decoration:none;">Email us</a> and we'll recommend the best fit.
     </p>
+  </div>
+</section>
+
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div style="text-align:center; max-width:600px; margin:0 auto;">
+      <div class="eyebrow">Client Outcomes</div>
+      <h2 style="font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-1px;color:var(--black);">Real results from real businesses.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"I was spending two hours every evening writing quotes and chasing invoices. Leverage Consulting set up an automated system that handles it all. I actually get to see my family on weeknights now. Best investment I've made in my business."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Mark Davies</div>
+          <div class="testimonial-role">Owner, Davies Plumbing & Heating</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"We were about to hire two new admin staff to handle our growing customer enquiry volume. The Professional Audit showed us how to automate 80% of the triage process. We scaled our revenue by 30% this year without adding a single headcount."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Sarah Jenkins</div>
+          <div class="testimonial-role">Managing Director, SJ Logistics</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"The diagnostic was incredibly sharp. Within 24 hours we had a clear, jargon-free roadmap of exactly where AI could cut costs in our firm. The implementation plan was flawless and we saw ROI within the first month."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-name">James Houghton</div>
+          <div class="testimonial-role">Partner, Houghton & Co Accounting</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"As a small agency, we thought AI was just for massive corporations. Leverage showed us how to use it to generate our monthly client reports in minutes instead of days. It's completely transformed our profitability."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Elena Rostova</div>
+          <div class="testimonial-role">Founder, Elevate Digital Marketing</div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"I run a landscaping firm and paperwork is my nightmare. The team at Leverage didn't just give me a report, they actually understood my daily struggles. My quoting time has gone from 45 minutes per job to about 5 minutes."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-name">Tom Clarke</div>
+          <div class="testimonial-role">Director, Clarke Landscapes</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
