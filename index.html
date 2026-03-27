@@ -61,17 +61,12 @@
     /* ── HERO ────────────────────────────────────────────────────────── */
     .hero {
       text-align: center; padding: 120px 22px 100px;
-      background: var(--black);
+      background-color: var(--black);
+      background-image: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('/homepage_hero.jpg');
+      background-size: cover;
+      background-position: center 35%;
       position: relative; overflow: hidden;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background-image: url('/homepage_hero.jpg');
-      background-size: cover; background-position: center 35%;
-      opacity: 0.28;
-      z-index: 0;
-    }
-    .hero > * { position: relative; z-index: 1; }
     .hero-eyebrow {
       font-size: .95rem; font-weight: 500; color: #60a5fa;
       margin-bottom: 16px; letter-spacing: .3px;
@@ -421,7 +416,6 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
   <div class="hero-eyebrow">Free AI Readiness Diagnostic</div>
   <h1>AI doesn't wait.<br>Neither should you.</h1>
   <p class="hero-sub">Find out exactly where AI can save your business time and money — your personalised diagnostic, free, delivered to your inbox in minutes.</p>
