@@ -60,17 +60,12 @@
     /* ── HERO ────────────────────────────────────────────────────────── */
     .hero {
       text-align: center; padding: 120px 22px 100px;
-      background: var(--black);
+      background-color: var(--black);
+      background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('/trades_hero.jpg');
+      background-size: cover;
+      background-position: center 30%;
       position: relative; overflow: hidden;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background-image: url('/trades_hero.jpg');
-      background-size: cover; background-position: center 30%;
-      opacity: 0.35;
-      z-index: 0;
-    }
-    .hero > * { position: relative; z-index: 1; }
     .hero-eyebrow {
       font-size: .95rem; font-weight: 500; color: #60a5fa;
       margin-bottom: 16px; letter-spacing: .3px;
@@ -381,9 +376,8 @@
 </nav>
 
 
-<!-- HERO v3 -->
+<!-- HERO v4 -->
 <section class="hero">
-  <div class="hero-bg"></div>
   <div class="hero-eyebrow">For UK Trades &amp; Construction Businesses</div>
   <h1>Stop doing admin<br>at <span class="accent">9 PM.</span></h1>
   <p class="hero-sub">You didn't start a trade business to spend your evenings writing quotes and chasing invoices. Find out exactly how many hours AI can give back to you — free, in 3 minutes.</p>
