@@ -905,33 +905,58 @@
 
 
 <script>
-  // ── Save form data on submit ──────────────────────────────────────────
+  // ── Free diagnostic form submission ──────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('audit-form');
+    var form = document.getElementById('audit-form');
+    var submitBtn = document.getElementById('submit-btn');
+    var btnText = document.getElementById('btn-text');
+    var successScreen = document.getElementById('success-screen');
+    var msgError = document.getElementById('msg-error');
+
     if (form) {
-      form.addEventListener('submit', function () {
-        const data = {};
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var data = {};
         new FormData(form).forEach(function(v, k) { data[k] = v; });
         sessionStorage.setItem('auditFormData', JSON.stringify(data));
+
+        if (submitBtn) { submitBtn.disabled = true; }
+        if (btnText) { btnText.textContent = 'Sending…'; }
+        if (msgError) { msgError.style.display = 'none'; }
+
+        fetch('https://talented-inspiration-production.up.railway.app/free-diagnostic', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+        .then(function(r) {
+          if (r.status === 202 || r.ok) {
+            form.style.display = 'none';
+            if (successScreen) { successScreen.style.display = 'block'; }
+          } else {
+            throw new Error('status ' + r.status);
+          }
+        })
+        .catch(function() {
+          if (msgError) { msgError.style.display = 'block'; }
+          if (submitBtn) { submitBtn.disabled = false; }
+          if (btnText) { btnText.textContent = 'Send me my free diagnostic'; }
+        });
       });
     }
   });
 
-  // ── Checkout handler (all tiers) ──────────────────────────────────────
+  // ── Checkout handler (all tiers) ────────────────────────────────────
   function handleCheckout(tier) {
-    let intake = {};
+    var intake = {};
     try { intake = JSON.parse(sessionStorage.getItem('auditFormData') || '{}'); } catch(e) {}
-
-    const form = document.getElementById('audit-form');
-    if (form) {
-      new FormData(form).forEach(function(v, k) { intake[k] = v; });
-    }
+    var form = document.getElementById('audit-form');
+    if (form) { new FormData(form).forEach(function(v, k) { intake[k] = v; }); }
     intake.tier = tier;
-
-    const btn = event && event.target ? event.target : document.querySelector('.success-cta, .tier-btn');
-    const origText = btn ? btn.textContent : '';
+    var btn = event && event.target ? event.target : document.querySelector('.success-cta, .tier-btn');
+    var origText = btn ? btn.textContent : '';
     if (btn) { btn.textContent = 'Redirecting…'; btn.disabled = true; }
-
     fetch('https://talented-inspiration-production.up.railway.app/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -939,22 +964,21 @@
     })
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
+      if (data.url) { window.location.href = data.url; }
+      else {
         alert('Could not start checkout: ' + (data.error || 'unknown error'));
         if (btn) { btn.textContent = origText; btn.disabled = false; }
       }
     })
-    .catch(function(err) {
+    .catch(function() {
       alert('Network error. Please try again.');
       if (btn) { btn.textContent = origText; btn.disabled = false; }
     });
   }
 
-  // ── Mobile nav toggle ─────────────────────────────────────────────────
-  const toggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
+  // ── Mobile nav toggle ────────────────────────────────────────────────
+  var toggle = document.querySelector('.nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
   if (toggle && navLinks) {
     toggle.addEventListener('click', function () {
       navLinks.classList.toggle('open');
